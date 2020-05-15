@@ -1,7 +1,6 @@
 import { User, logUser } from "./model";
 import { logError } from "./utils";
 import { fold } from "fp-ts/lib/Either";
-import { log } from "fp-ts/lib/Console";
 
 // case 0
 console.log('notUser0');
