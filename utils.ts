@@ -25,7 +25,7 @@ export function formatActualValue(val: unknown): string {
     return `${typeof val}(${val})`;
 }
 
-// convert Error object to String
+// convert Error list to String
 export function toString(errors: t.Errors): string {
     return errors.map((e) => `Invalid prop: ${getPropPath(e.context)}\t>> Expected: ${getExpected(e.context)} <> Actual: ${formatActualValue(e.value)}`).join('\n') + '\n';
 };
