@@ -2,10 +2,11 @@ import * as t from 'io-ts/lib';
 import { log } from 'fp-ts/lib/Console'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { IO } from 'fp-ts/lib/IO';
+import { min, max } from './rules';
 
 // define user model (2 required, 1 optional)
 export const User = t.intersection([t.type({
-    username: t.string,
+    username: t.intersection([t.string, min(6), max(12)]),
     first_name: t.string,
 }), t.partial({
     last_name: t.string,
