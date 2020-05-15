@@ -1,0 +1,16 @@
+{
+  "name": "test_io-ts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node main.ts"
+  },
+  "dependencies": {
+    "fp-ts": "^2.6.1",
+    "io-ts": "^2.2.2"
+  },
+  "devDependencies": {
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
+  }
+}
