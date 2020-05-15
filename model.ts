@@ -17,7 +17,7 @@ export type User = t.TypeOf<typeof User>;
 
 // convert User object to String
 export function toString(user: User): string {
-    return `Username: ${user.username}, First name: ${user.first_name} Last name:${user.last_name}\n`;
+    return `Username: ${user.username}, First name: ${user.first_name} Last name: ${user.last_name}\n`;
 }
 
 // log to console
