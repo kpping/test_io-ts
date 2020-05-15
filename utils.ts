@@ -5,6 +5,8 @@ import { last } from 'fp-ts/lib/Array';
 import { getOrElse, map } from 'fp-ts/lib/Option';
 import { IO } from 'fp-ts/lib/IO';
 import { isNil } from '@ag1/nil';
+import { returnSwitch } from '@ag1/return_switch';
+import { tryCatch, fold } from 'fp-ts/lib/Either';
 
 // get incorrect propery path
 export function getPropPath(context: t.Context): string {
@@ -16,13 +18,19 @@ export function getExpected(context: t.Context): string {
     return pipe(Array.from(context), last, map((c) => c.type.name), getOrElse(() => 'any'));
 }
 
+// get constructor name or type of val
+export function getTypeOf(val: any): string {
+    const constructorName = tryCatch<Error, string>(() => val.constructor.name, e => (e instanceof Error ? e : new Error(String(e))));
+
+    return fold(() => typeof val, (t: string) => t)(constructorName);
+}
+
 // if val is not nil, put it in bracket
 export function formatActualValue(val: unknown): string {
-    if (isNil(val)) {
-        return `${val}`;
-    }
-
-    return `${typeof val}(${val})`;
+    return returnSwitch<string>(isNil(val))([
+        [false, `${getTypeOf(val)}(${val})`],
+        [true, `${val}`],
+    ]);
 }
 
 // convert Error list to String
