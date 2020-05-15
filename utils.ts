@@ -7,6 +7,7 @@ import { IO } from 'fp-ts/lib/IO';
 import { isNil } from '@ag1/nil';
 import { returnSwitch } from '@ag1/return_switch';
 import { tryCatch, fold } from 'fp-ts/lib/Either';
+import { green, red } from 'chalk';
 
 // get incorrect propery path
 export function getPropPath(context: t.Context): string {
@@ -35,7 +36,7 @@ export function formatActualValue(val: unknown): string {
 
 // convert Error list to String
 export function toString(errors: t.Errors): string {
-    return errors.map((e) => `Invalid prop: ${getPropPath(e.context)}\t>> Expected: ${getExpected(e.context)} <> Actual: ${formatActualValue(e.value)}`).join('\n') + '\n';
+    return errors.map((e) => `Invalid prop: ${getPropPath(e.context)}\t>> Expected: ${green(getExpected(e.context))} <> Actual: ${red(formatActualValue(e.value))}`).join('\n') + '\n';
 };
 
 // log to console
